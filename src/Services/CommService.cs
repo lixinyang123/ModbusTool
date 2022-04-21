@@ -11,6 +11,8 @@ namespace Simulator.Services
 
         private readonly SerialPortConf config;
 
+        private SerialPort? serialPort;
+
         public CommService()
         {
             if(!File.Exists(configPath))
@@ -28,7 +30,7 @@ namespace Simulator.Services
 
         public void Start()
         {
-            SerialPort serialPort = new SerialPort()
+            this.serialPort = new SerialPort()
             {
                 PortName = config.PortName,
                 BaudRate = config.BaudRate,
