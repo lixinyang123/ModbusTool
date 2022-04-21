@@ -1,2 +1,2 @@
 # Simulator
-MetrologyWorks Communications Simulator
+MetrologyWorks communications simulation cli
