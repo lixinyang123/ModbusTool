@@ -17,9 +17,9 @@ namespace Simulator.Commands
             this.SetHandler<int>(Execute, argument);
         }
 
-        private void Execute(int port)
+        private async Task Execute(int port)
         {
-            commService.Startup(port);
+            await commService.Startup(port);
         }
     }
 }
