@@ -7,7 +7,6 @@ namespace Simulator.Extensions
     {
         public static RootCommand Initialize(this RootCommand rootCommand)
         {
-            rootCommand.Add(new InitCommand());
             rootCommand.Add(new StartupCommand());
             return rootCommand;
         }

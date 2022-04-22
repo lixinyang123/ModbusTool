@@ -10,12 +10,16 @@ namespace Simulator.Commands
         public StartupCommand() : base("startup", "Start simulator")
         {
             commService = new CommService();
-            this.SetHandler(Execute);
+
+            var argument = new Argument<int>("port", "Listening Port");
+            base.AddArgument(argument);
+            
+            this.SetHandler<int>(Execute, argument);
         }
 
-        private void Execute()
+        private void Execute(int port)
         {
-            commService.Start();
+            commService.Startup(port);
         }
     }
 }
