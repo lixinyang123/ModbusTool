@@ -1,6 +1,6 @@
 ﻿namespace Simulator.Models.Message
 {
-    public abstract class BaseMsg
+    public abstract class BaseMsg<T>
     {
         /// <summary>
         /// 消息长度
@@ -17,11 +17,11 @@
         /// </summary>
         public byte Result { get; }
 
-        public BaseMsg(byte length, byte[] cmdCode, byte result)
+        public BaseMsg(byte length, byte[] cmdCode, T result)
         {
             Length = length;
             CmdCode = cmdCode;
-            Result = result;
+            Result = Convert.ToByte(result);
         }
 
         public abstract byte[] GetBytes();

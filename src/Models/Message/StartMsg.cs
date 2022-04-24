@@ -2,10 +2,10 @@
 
 namespace Simulator.Models.Message
 {
-    public class StartMsg : BaseMsg
+    public class StartMsg : BaseMsg<StartResult>
     {
         public StartMsg(byte[] cmdCode, StartResult result) : 
-            base(0x04, cmdCode, Convert.ToByte(result)) { }
+            base(0x04, cmdCode, result) { }
 
         /// <summary>
         /// 读取完整消息

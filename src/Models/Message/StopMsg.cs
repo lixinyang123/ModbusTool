@@ -2,10 +2,10 @@
 
 namespace Simulator.Models.Message
 {
-    public class StopMsg : BaseMsg
+    public class StopMsg : BaseMsg<StopResult>
     {
         public StopMsg(byte[] cmdCode, StopResult result) : 
-            base(0x04, cmdCode, Convert.ToByte(result)) { }
+            base(0x04, cmdCode, result) { }
 
         /// <summary>
         /// 读取完整消息
