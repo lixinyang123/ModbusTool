@@ -1,29 +1,37 @@
 ﻿namespace Simulator.Models.Message
 {
-    public class ReadVersionMsg
+    public class ReadVersionMsg: BaseMsg
     {
-        public byte[] CmdCode { get; }
-
-        public byte Result { get; }
-
+        /// <summary>
+        /// 硬件版本 Version
+        /// </summary>
         public byte HwVersion { get; }
 
+        /// <summary>
+        /// 软件版本 Version
+        /// </summary>
         public byte SwVersion { get; }
 
+        /// <summary>
+        /// 消息长度
+        /// </summary>
         public byte Length { get; } = 0x0c;
 
-        public ReadVersionMsg(byte[] cmdCode, byte result, byte hwVersion, byte swVersion)
+        public ReadVersionMsg(byte[] cmdCode, byte result, byte hwVersion, byte swVersion) : base(cmdCode, result)
         {
-            CmdCode = cmdCode;
-            Result = result;
             HwVersion = hwVersion;
             SwVersion = swVersion;
         }
 
-        public byte[] GetBytes()
+        /// <summary>
+        /// 读取完整消息
+        /// </summary>
+        /// <returns>消息buffer</returns>
+        public override byte[] GetBytes()
         {
             List<byte> buffer = new() { Length };
             buffer.AddRange(CmdCode);
+            buffer.Add(Result);
             buffer.Add(HwVersion);
             buffer.Add(SwVersion);
             return buffer.ToArray();
