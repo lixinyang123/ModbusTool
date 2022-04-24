@@ -5,6 +5,6 @@
         /// <summary>
         /// 成功
         /// </summary>
-        public static byte[] Success { get; set; } = { 0x00 };
+        public static byte Success { get; set; } = 0x00;
     }
 }
