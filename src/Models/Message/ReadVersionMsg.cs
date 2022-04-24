@@ -2,7 +2,7 @@
 {
     public class ReadVersionMsg
     {
-        public byte CmdCode { get; }
+        public byte[] CmdCode { get; }
 
         public byte Result { get; }
 
@@ -10,12 +10,9 @@
 
         public byte SwVersion { get; }
 
-        public byte Length
-        {
-            get => Convert.ToByte(GetType().GetProperties().Length);
-        }
+        public byte Length { get; } = 0x0c;
 
-        public ReadVersionMsg(byte cmdCode, byte result, byte hwVersion, byte swVersion)
+        public ReadVersionMsg(byte[] cmdCode, byte result, byte hwVersion, byte swVersion)
         {
             CmdCode = cmdCode;
             Result = result;
@@ -25,14 +22,11 @@
 
         public byte[] GetBytes()
         {
-            return new List<byte>()
-            {
-                Length,
-                CmdCode,
-                Result,
-                HwVersion,
-                SwVersion
-            }.ToArray();
+            List<byte> buffer = new() { Length };
+            buffer.AddRange(CmdCode);
+            buffer.Add(HwVersion);
+            buffer.Add(SwVersion);
+            return buffer.ToArray();
         }
     }
 }
