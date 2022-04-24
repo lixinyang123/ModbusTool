@@ -10,6 +10,6 @@
         /// <summary>
         /// 时间戳错误（Stamp 数过小）
         /// </summary>
-        public static byte[] TimestampError { get; set; } = { 0x02 };
+        public static byte[] TimestampError { get; set; } = { 0x01 };
     }
 }
