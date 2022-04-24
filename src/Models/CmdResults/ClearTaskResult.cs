@@ -1,10 +1,10 @@
 ﻿namespace Simulator.Models.CmdResults
 {
-    public static class ClearTaskResult
+    public enum ClearTaskResult
     {
         /// <summary>
         /// 成功
         /// </summary>
-        public static byte Success { get; set; } = 0x00;
+        Success = 0x00
     }
 }

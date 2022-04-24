@@ -1,3 +1,4 @@
+using Simulator.Models;
 using System.Net;
 using System.Net.Sockets;
 
@@ -36,7 +37,64 @@ namespace Simulator.Services
 
         private void Route(byte[] buffer)
         {
-            Console.WriteLine("qwerqwr");
+            byte cmdCode = buffer[2];
+
+            switch (cmdCode)
+            {
+                case 0x00:
+                    break;
+
+                case 0x01:
+                    break;
+
+                case 0x02:
+                    break;
+
+                case 0x03:
+                    break;
+
+                case 0x04:
+                    break;
+
+                case 0x05:
+                    break;
+
+                case 0x06:
+                    break;
+
+                case 0x07:
+                    break;
+
+                case 0x08:
+                    break;
+
+                case 0x09:
+                    break;
+
+                case 0x0a:
+                    break;
+
+                case 0x0b:
+                    break;
+
+                case 0x0c:
+                    break;
+
+                case 0x0d:
+                    break;
+
+                case 0x0e:
+                    break;
+
+                case 0x0f:
+                    break;
+
+                case 0x10:
+                    break;
+
+                case 0x11:
+                    break;
+            }
         }
     }
 }

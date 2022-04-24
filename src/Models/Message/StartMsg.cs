@@ -1,13 +1,11 @@
-﻿namespace Simulator.Models.Message
+﻿using Simulator.Models.CmdResults;
+
+namespace Simulator.Models.Message
 {
     public class StartMsg : BaseMsg
     {
-        /// <summary>
-        /// 消息长度
-        /// </summary>
-        public byte Length { get; } = 0x04;
-
-        public StartMsg(byte[] cmdCode, byte result) : base(cmdCode, result) { }
+        public StartMsg(byte[] cmdCode, StartResult result) : 
+            base(0x04, cmdCode, Convert.ToByte(result)) { }
 
         /// <summary>
         /// 读取完整消息

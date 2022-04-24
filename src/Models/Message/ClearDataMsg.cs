@@ -1,15 +1,17 @@
-﻿namespace Simulator.Models.Message
+﻿using Simulator.Models.CmdResults;
+
+namespace Simulator.Models.Message
 {
     public class ClearDataMsg : BaseMsg
     {
-        public ClearDataMsg(byte[] cmdCode, byte result) : base(cmdCode, result)
-        {
-
-        }
+        public ClearDataMsg(byte[] cmdCode, ClearDataResult result) : base(0x00, cmdCode, Convert.ToByte(result)) { }
 
         public override byte[] GetBytes()
         {
-            throw new NotImplementedException();
+            List<byte> buffer = new() { Length };
+            buffer.AddRange(CmdCode);
+            buffer.Add(Result);
+            return buffer.ToArray();
         }
     }
 }
