@@ -11,7 +11,7 @@ namespace Simulator.Models.Message
         No = 0x01
     }
 
-    internal class GetDataMsg<T> : BaseMsg<GetDataResult>
+    internal class GetDataMsg : BaseMsg<GetDataResult>
     {
         /// <summary>
         /// 本包抽样点数
