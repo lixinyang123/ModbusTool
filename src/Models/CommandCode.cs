@@ -5,7 +5,7 @@ namespace Simulator.Models
         /// <summary>
         /// 版本号
         /// </summary>
-        public static byte[] Version { get; set; } = { 0x00, 0x01 };
+        public static byte[] GetVersion { get; set; } = { 0x00, 0x01 };
 
         /// <summary>
         /// 开启采集

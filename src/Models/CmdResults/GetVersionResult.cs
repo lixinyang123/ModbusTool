@@ -1,6 +1,6 @@
 ﻿namespace Simulator.Models.CmdResults
 {
-    public enum VersionResult
+    public enum GetVersionResult
     {
         /// <summary>
         /// 成功
