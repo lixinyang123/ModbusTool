@@ -4,9 +4,9 @@ using System.Net.Sockets;
 
 namespace Simulator.Services
 {
-    public class CommService
+    public static class CommService
     {
-        public async Task Startup(int port)
+        public static async Task Startup(int port)
         {
             Socket socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.Bind(new IPEndPoint(IPAddress.Any, port));
@@ -21,7 +21,7 @@ namespace Simulator.Services
             }
         }
 
-        private void Handler(Socket socket)
+        private static void Handler(Socket socket)
         {
             while (true)
             {
@@ -36,7 +36,7 @@ namespace Simulator.Services
             }
         }
 
-        private byte[] Route(byte[] buffer) => buffer[2] switch
+        private static byte[] Route(byte[] buffer) => buffer[2] switch
         {
             0x01 => new GetVersionHandler().Handle(buffer),
             0x02 => new StartHandler().Handle(buffer),
