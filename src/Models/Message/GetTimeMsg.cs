@@ -11,8 +11,13 @@ namespace Simulator.Models.Message
             List<byte> buffer = new() { Length };
             buffer.AddRange(CmdCode);
             buffer.Add(Result);
-            buffer.Add(Convert.ToByte(DateTime.UtcNow));
+
+            int time = Convert.ToInt32(DateTimeOffset.Now.ToUnixTimeSeconds());
+            byte[] timeBuffer = BitConverter.GetBytes(time).Reverse().ToArray();
+
+            buffer.AddRange(timeBuffer);
             return buffer.ToArray();
         }
     }
 }
+ 
