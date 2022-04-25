@@ -4,8 +4,8 @@ namespace Simulator.Models.Message
 {
     public class ClearDataMsg : BaseMsg<ClearDataResult>
     {
-        public ClearDataMsg(byte[] cmdCode, ClearDataResult result) : 
-            base(0x00, cmdCode, result) { }
+        public ClearDataMsg(ClearDataResult result) : 
+            base(0x00, CommandCode.ClearData, result) { }
 
         public override byte[] GetBytes()
         {

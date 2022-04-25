@@ -4,8 +4,8 @@ namespace Simulator.Models.Message
 {
     public class StartMsg : BaseMsg<StartResult>
     {
-        public StartMsg(byte[] cmdCode, StartResult result) : 
-            base(0x04, cmdCode, result) { }
+        public StartMsg(StartResult result) : 
+            base(0x04, CommandCode.Start, result) { }
 
         /// <summary>
         /// 读取完整消息

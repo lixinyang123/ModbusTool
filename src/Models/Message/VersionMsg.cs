@@ -2,7 +2,7 @@
 
 namespace Simulator.Models.Message
 {
-    public class ReadVersionMsg: BaseMsg<VersionResult>
+    public class VersionMsg: BaseMsg<VersionResult>
     {
         /// <summary>
         /// 硬件版本 Version
@@ -14,8 +14,8 @@ namespace Simulator.Models.Message
         /// </summary>
         public byte[] SwVersion { get; }
 
-        public ReadVersionMsg(byte[] cmdCode, VersionResult result, byte[] hwVersion, byte[] swVersion) : 
-            base(0x0c, cmdCode, result)
+        public VersionMsg(VersionResult result, byte[] hwVersion, byte[] swVersion) : 
+            base(0x0c, CommandCode.Version, result)
         {
             HwVersion = hwVersion;
             SwVersion = swVersion;

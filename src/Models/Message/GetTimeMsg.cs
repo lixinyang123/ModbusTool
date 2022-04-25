@@ -4,7 +4,7 @@ namespace Simulator.Models.Message
 {
     public class GetTimeMsg : BaseMsg<GetTimeResult>
     {
-        public GetTimeMsg(byte[] cmdCode, GetTimeResult result) : base(0x08, cmdCode, result) { }
+        public GetTimeMsg(GetTimeResult result) : base(0x08, CommandCode.GetTime, result) { }
 
         public override byte[] GetBytes()
         {

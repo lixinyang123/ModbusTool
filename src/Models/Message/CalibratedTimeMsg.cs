@@ -2,15 +2,10 @@
 
 namespace Simulator.Models.Message
 {
-    public class StopMsg : BaseMsg<StopResult>
+    public class CalibratedTimeMsg : BaseMsg<CalibratedTimeResult>
     {
-        public StopMsg(StopResult result) : 
-            base(0x04, CommandCode.Stop, result) { }
+        public CalibratedTimeMsg(CalibratedTimeResult result) : base(0x04, CommandCode.CalibratedTime, result) { }
 
-        /// <summary>
-        /// 读取完整消息
-        /// </summary>
-        /// <returns>消息buffer</returns>
         public override byte[] GetBytes()
         {
             List<byte> buffer = new() { Length };
