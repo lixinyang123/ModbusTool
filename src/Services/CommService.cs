@@ -1,4 +1,4 @@
-using Simulator.Models;
+using Simulator.Handler;
 using System.Net;
 using System.Net.Sockets;
 
@@ -14,7 +14,7 @@ namespace Simulator.Services
 
             Console.WriteLine($"Server run at port {port}");
 
-            while(true)
+            while (true)
             {
                 Socket client = await socket.AcceptAsync();
                 Handler(client);
@@ -23,7 +23,7 @@ namespace Simulator.Services
 
         private void Handler(Socket socket)
         {
-            while(true)
+            while (true)
             {
                 byte[] buffer = new byte[socket.ReceiveBufferSize];
                 int length = socket.Receive(buffer);
@@ -31,70 +31,30 @@ namespace Simulator.Services
                 byte[] datas = new byte[length];
                 Array.Copy(buffer, datas, length);
 
-                Route(datas);
+                byte[] resBuffer = Route(datas);
+                socket.SendAsync(resBuffer);
             }
         }
 
-        private void Route(byte[] buffer)
+        private byte[] Route(byte[] buffer) => buffer[2] switch
         {
-            byte cmdCode = buffer[2];
-
-            switch (cmdCode)
-            {
-                case 0x00:
-                    break;
-
-                case 0x01:
-                    break;
-
-                case 0x02:
-                    break;
-
-                case 0x03:
-                    break;
-
-                case 0x04:
-                    break;
-
-                case 0x05:
-                    break;
-
-                case 0x06:
-                    break;
-
-                case 0x07:
-                    break;
-
-                case 0x08:
-                    break;
-
-                case 0x09:
-                    break;
-
-                case 0x0a:
-                    break;
-
-                case 0x0b:
-                    break;
-
-                case 0x0c:
-                    break;
-
-                case 0x0d:
-                    break;
-
-                case 0x0e:
-                    break;
-
-                case 0x0f:
-                    break;
-
-                case 0x10:
-                    break;
-
-                case 0x11:
-                    break;
-            }
-        }
+            0x01 => new GetVersionHandler().Handle(buffer),
+            0x02 => new StartHandler().Handle(buffer),
+            0x03 => new StopHandler().Handle(buffer),
+            0x04 => new ClearDataHandler().Handle(buffer),
+            0x05 => new GetTimeHandler().Handle(buffer),
+            0x06 => new CalibratedTimeHandler().Handle(buffer),
+            0x07 => new GetInfoHandler().Handle(buffer),
+            0x08 => new ClearTaskHandler().Handle(buffer),
+            0x09 => new CreateTaskHandler().Handle(buffer),
+            0x0a => new GetTaskHandler().Handle(buffer),
+            0x0b => new Task2FlashHandler().Handle(buffer),
+            0x0d => new GetDataHandler().Handle(buffer),
+            0x0e => new SetCalibrationHandler().Handle(buffer),
+            0x0f => new GetCalibrationHandler().Handle(buffer),
+            0x10 => new Calibration2FlashHandler().Handle(buffer),
+            0x11 => new FindExecTagHandler().Handle(buffer),
+            _ => throw new NotImplementedException()
+        };
     }
 }
