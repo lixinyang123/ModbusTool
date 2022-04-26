@@ -33,11 +33,14 @@ namespace Simulator.Services
 
                     byte[] datas = new byte[length];
                     Array.Copy(buffer, datas, length);
+                    Console.Write($"<< {BitConverter.ToString(datas)}");
 
                     byte[] resBuffer = Route(datas);
+
+                    Console.Write($">> {BitConverter.ToString(resBuffer)}");
                     socket.SendAsync(resBuffer);
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                     Console.WriteLine("Disconnect.");
                 }
