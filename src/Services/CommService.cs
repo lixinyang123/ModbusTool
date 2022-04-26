@@ -17,6 +17,8 @@ namespace Simulator.Services
             while (true)
             {
                 Socket client = await socket.AcceptAsync();
+                Console.WriteLine("连接成功");
+                client.Send(System.Text.Encoding.UTF8.GetBytes("Hello"));
                 Handler(client);
             }
         }
