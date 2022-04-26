@@ -17,8 +17,7 @@ namespace Simulator.Services
             while (true)
             {
                 Socket client = await socket.AcceptAsync();
-                Console.WriteLine("连接成功");
-                client.Send(System.Text.Encoding.UTF8.GetBytes("Hello"));
+                Console.WriteLine("Connect success!");
                 Handler(client);
             }
         }
@@ -27,14 +26,21 @@ namespace Simulator.Services
         {
             while (true)
             {
-                byte[] buffer = new byte[socket.ReceiveBufferSize];
-                int length = socket.Receive(buffer);
+                try
+                {
+                    byte[] buffer = new byte[socket.ReceiveBufferSize];
+                    int length = socket.Receive(buffer);
 
-                byte[] datas = new byte[length];
-                Array.Copy(buffer, datas, length);
+                    byte[] datas = new byte[length];
+                    Array.Copy(buffer, datas, length);
 
-                byte[] resBuffer = Route(datas);
-                socket.SendAsync(resBuffer);
+                    byte[] resBuffer = Route(datas);
+                    socket.SendAsync(resBuffer);
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Disconnect.");
+                }
             }
         }
 

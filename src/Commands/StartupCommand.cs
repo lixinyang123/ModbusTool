@@ -15,7 +15,11 @@ namespace Simulator.Commands
 
         private async Task Execute(int port)
         {
-            await CommService.Startup(port);
+            try
+            {
+                await CommService.Startup(port);
+            }
+            catch (System.Exception) { }
         }
     }
 }
