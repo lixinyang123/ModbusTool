@@ -38,7 +38,7 @@ namespace Simulator.Services
             }
         }
 
-        private static byte[] Route(byte[] buffer) => buffer[2] switch
+        private static byte[] Route(byte[] buffer) => buffer[1] switch
         {
             0x01 => new GetVersionHandler().Handle(buffer),
             0x02 => new StartHandler().Handle(buffer),
