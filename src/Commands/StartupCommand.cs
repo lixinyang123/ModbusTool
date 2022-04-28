@@ -5,7 +5,7 @@ namespace Simulator.Commands
 {
     class StartupCommand : Command
     {
-        public StartupCommand() : base("startup", "Start simulator")
+        public StartupCommand() : base("startup", "- Start simulator\n- Send hex code like \"00 0a 10 0f\"")
         {
             var argument = new Argument<int>("port", "Listening Port");
             AddArgument(argument);
