@@ -1,48 +1,74 @@
 using Simulator.Handler;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace Simulator.Services
 {
     public static class CommService
     {
-        public static async Task Startup(int port)
+        private static Socket? socketConnect;
+
+        public static void Startup(int port)
         {
-            Socket socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.Bind(new IPEndPoint(IPAddress.Any, port));
-            socket.Listen();
+            Socket socketListen = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socketListen.Bind(new IPEndPoint(IPAddress.Any, port));
+            socketListen.Listen();
 
             Console.WriteLine($"Server run at port {port}");
 
+            _ = Task.Run(() =>
+            {
+                Listen(socketListen);
+            });
+
             while (true)
             {
-                Socket client = await socket.AcceptAsync();
-                Console.WriteLine("Connect success!");
-                Handler(client);
+                Console.WriteLine("\nInput =>");
+                string msg = Console.ReadLine() ?? string.Empty;
+
+                List<byte> buffer = new();
+                msg.Split(' ').ToList().ForEach(i => buffer.Add(Convert.ToByte(i, 16)));
+
+                socketConnect?.SendAsync(buffer.ToArray());
             }
         }
 
-        private static void Handler(Socket socket)
+        private static async void Listen(Socket socketListen)
         {
             while (true)
             {
+                socketConnect = await socketListen.AcceptAsync();
+                Console.WriteLine("\nConnect success!");
+                _ = Task.Run(() =>
+                {
+                    Handler();
+                });
+            }
+        }
+
+        private static void Handler()
+        {
+            while (socketConnect != null)
+            {
                 try
                 {
-                    byte[] buffer = new byte[socket.ReceiveBufferSize];
-                    int length = socket.Receive(buffer);
+                    byte[] buffer = new byte[socketConnect.ReceiveBufferSize];
+                    int length = socketConnect.Receive(buffer);
 
                     byte[] datas = new byte[length];
                     Array.Copy(buffer, datas, length);
-                    Console.Write($"<< {BitConverter.ToString(datas)}");
+                    Console.WriteLine($"\n<< {BitConverter.ToString(datas)}");
 
                     byte[] resBuffer = Route(datas);
 
-                    Console.Write($">> {BitConverter.ToString(resBuffer)}");
-                    socket.SendAsync(resBuffer);
+                    Console.WriteLine($"\n>> {BitConverter.ToString(resBuffer)}");
+                    socketConnect.SendAsync(resBuffer);
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Disconnect.");
+                    socketConnect = null;
+                    Console.WriteLine("\nDisconnect.");
                 }
             }
         }

@@ -1,5 +1,5 @@
-using System.CommandLine;
 using Simulator.Services;
+using System.CommandLine;
 
 namespace Simulator.Commands
 {
@@ -9,17 +9,17 @@ namespace Simulator.Commands
         {
             var argument = new Argument<int>("port", "Listening Port");
             AddArgument(argument);
-            
+
             this.SetHandler<int>(Execute, argument);
         }
 
-        private async Task Execute(int port)
+        private void Execute(int port)
         {
             try
             {
-                await CommService.Startup(port);
+                CommService.Startup(port);
             }
-            catch (System.Exception) { }
+            catch (Exception) { }
         }
     }
 }
