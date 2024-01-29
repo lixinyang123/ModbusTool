@@ -1,5 +1,5 @@
 # Simulator
-MetrologyWorks communications simulation cli
+Modbus communications simulation cli
 
 ```pwsh
 
@@ -8,7 +8,7 @@ bin/Debug/net7.0 on 🔱 main
 Required command was not provided.
 
 Description:
-  MetrologyWorks Simulator
+  Modbus Simulator
 
 Usage:
   Simulator [command] [options]
