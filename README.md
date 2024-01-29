@@ -1,10 +1,9 @@
-# Simulator
+# ModbusTool
 Modbus communications simulation cli
 
 ```pwsh
 
-bin/Debug/net7.0 on 🔱 main
-🔋 100% ❯ .\Simulator.exe
+🔋 100% ❯ .\ModbusTool.exe
 Required command was not provided.
 
 Description:
